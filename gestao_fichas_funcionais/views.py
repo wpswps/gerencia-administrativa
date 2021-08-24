@@ -45,3 +45,18 @@ def informar_dados_ficha(request):
 @login_required(login_url='/login/')
 def set_informar_dados_ficha(request):
 	return redirect('index')
+
+
+@login_required(login_url='/login/')
+def localizar_fichas(request):
+	return render(request, 'localizar_fichas.html')
+
+
+@login_required(login_url='/login/')
+def set_localizar_fichas(request):
+	return redirect('acompanhar_ficha')
+
+
+@login_required(login_url='/login/')
+def acompanhar_ficha(request):
+	return render(request, 'acompanhar_ficha.html')

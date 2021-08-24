@@ -24,13 +24,107 @@
 
 <style>
   #num_oficio_id,
-  #btn_desfaz_id{
+  #btn_desfaz_id,
+  #lb_data_encaminhado_id,
+  #lb_data_recebido_id,
+  #lb_data_conferido_id,
+  #lb_data_devolucao_id,
+  #lb_data_retorno_unidade_id,
+  #lb_data_envio_gabinete_id,
+  #lb_data_encaminhado_sead_id{
     display: none;
   }
 </style>
 <script>
+  $(function() {
+    $(document).on('click','#lb_check_recebido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_recebido_id").show();
+      } else {
+        $("#lb_data_recebido_id").hide();
+        $("#data_recebido_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_conferido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_conferido_id").show();
+      } else {
+        $("#lb_data_conferido_id").hide();
+        $("#data_conferido_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_encaminhado', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_encaminhado_id").show();
+      } else {
+        $("#lb_data_encaminhado_id").hide();
+        $("#data_encaminhado_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_devolvido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_devolucao_id").show();
+      } else {
+        $("#lb_data_devolucao_id").hide();
+        $("#data_devolucao_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_retorno_unidade', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_retorno_unidade_id").show();
+      } else {
+        $("#lb_data_retorno_unidade_id").hide();
+        $("#data_retorno_unidade_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_gabinete', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_envio_gabinete_id").show();
+      } else {
+        $("#lb_data_envio_gabinete_id").hide();
+        $("#data_envio_gabinete_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_encaminhado_sead', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_encaminhado_sead_id").show();
+      } else {
+        $("#lb_data_encaminhado_sead_id").hide();
+        $("#data_encaminhado_sead_id").val("");
+      }
+    });
+  });
+
+
   function active_num_oficio(){
-    $("#num_oficio_id").show();
+
+    $("#lb_data_encaminhado_id").show();
+    
+    if (document.getElementById('lb_check_encaminhado').checked == true){
+      $("#num_oficio_id").show();
+    }
+    if (document.getElementById('lb_check_encaminhado').checked == false){
+      $("#num_oficio_id").hide();
+      $("#val_num_oficio").val("");
+    }
   }
 
   function desactive_check(){
@@ -101,7 +195,7 @@
           <a class="nav-link" href="/index/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Acompanhar Ficha</a>
+          <a class="nav-link" href="/acompanhar_ficha/">Acompanhar Ficha</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="">Informar Dados de Ficha</a>
@@ -138,10 +232,10 @@
         <a class="nav-link" data-toggle="tab" href="#menu1">Recebimento - Conferência</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu2">2ª Parte - Devolução</a>
+        <a class="nav-link" data-toggle="tab" href="#menu2">Retorno SEAD</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu2">3ª Parte</a>
+        <a class="nav-link" data-toggle="tab" href="#menu3">Retorno Unidade</a>
       </li>
     </ul>
 
@@ -215,25 +309,44 @@
       <div id="menu1" class="container tab-pane fade"><br>
         
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
+              <!--
               <div class="form-check">
                 <label class="form-check-label" for="radio1">
-                  <input type="radio" class="form-check-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_btn_desfaz()">Recebido
+                  <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_btn_desfaz()">Recebido
                 </label>
               </div>
+            -->
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_lb_data_recebido()">
+                <label class="custom-control-label" for="lb_check_recebido">Recebido</label>
+              </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
+              <!--
               <div class="form-check">
                 <label class="form-check-label" for="radio1">
                   <input type="radio" class="form-check-input" id="lb_check_conferido" name="conferido" value="conferido">Conferido
                 </label>
               </div>
+            -->
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_conferido" name="conferido" value="conferido" onclick="active_lb_data_conferido()">
+                <label class="custom-control-label" for="lb_check_conferido">Conferido</label>
+              </div>
+
             </div>
             <div class="col-md-3">
+              <!--
               <div class="form-check">
                 <label class="form-check-label" for="radio1">
                   <input type="radio" class="form-check-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">Encaminhado SEAD
                 </label>
+              </div>
+              -->
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">
+                <label class="custom-control-label" for="lb_check_encaminhado">Encaminhado SEAD</label>
               </div>
             </div>
             <div class="col-md-2" id="num_oficio_id">
@@ -241,10 +354,34 @@
                 <input class="form-control form-control-sm" id="val_num_oficio" type="text" name="funcao" placeholder="Número Ofício" required>
               </div>
             </div>
+            <!--
             <div class="col-md-3" id="btn_desfaz_id">
               <div class="form-group">
                 <button type="button" class="btn btn-primary btn-sm" onclick="desactive_check()"><b style="color: white;">Desfazer Seleção?</b>
                 </button>
+              </div>
+            </div>
+            -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+              <div class="form-check-inline" id="lb_data_recebido_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-check-inline" id="lb_data_conferido_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_conferido_id" name="data_conferido" value="">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-check-inline" id="lb_data_encaminhado_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_encaminhado_id" name="data_encaminhado" value="">
               </div>
             </div>
         </div>
@@ -254,19 +391,36 @@
         
         <div class="row">
           <div class="col-md-2">
+              <!--
               <div class="form-check">
                 <label class="form-check-label" for="radio1">
                   <input type="radio" class="form-check-input" id="lb_check_devolvido" name="devolvido" value="devolvido">Devolvido
                 </label>
               </div>
+            -->
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_devolvido" name="devolvido" value="devolvido">
+                <label class="custom-control-label" for="lb_check_devolvido">Devolvido</label>
+              </div>
+
+
             </div>
             <div class="col-md-2">
               <div class="form-group">
                 <select class="form-control form-control-sm" name="" id="">
-                  <option value=""></option>
+                  <option value="">escolha opção...</option>
                   <option value="contrato">Contrato</option>
                   <option value="acumulo">Acumulo</option>
                 </select>
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="form-group">
+                <label class="form-check-label" for="radio1">
+                  Unidade:
+                </label>
               </div>
             </div>
             
@@ -280,6 +434,71 @@
               </div>
             </div>
             
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+              <div class="form-check-inline" id="lb_data_devolucao_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_devolucao_id" name="data_devolucao" value="">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              
+            </div>
+            <div class="col-md-3">
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="menu3" class="container tab-pane fade"><br>
+        
+        <div class="row">
+          <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_retorno_unidade" name="retorno_unidade" value="retorno_unidade">
+                <label class="custom-control-label" for="lb_check_retorno_unidade">Retorno</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_gabinete" name="gabinete" value="gabinete">
+                <label class="custom-control-label" for="lb_check_gabinete">Gabinete Secretário</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado_sead" name="encaminhado_sead" value="encaminhado_sead">
+                <label class="custom-control-label" for="lb_check_encaminhado_sead">Encaminhado SEAD</label>
+              </div>
+            </div>
+                        
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_retorno_unidade_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_retorno_unidade_id" name="data_retorno_unidade" value="">
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_envio_gabinete_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_envio_gabinete_id" name="data_envio_gabinete" value="">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_encaminhado_sead_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_encaminhado_sead_id" name="data_encaminhado_sead" value="">
+              </div>
+            </div>
         </div>
 
       </div>

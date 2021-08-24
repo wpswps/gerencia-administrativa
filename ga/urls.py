@@ -25,5 +25,8 @@ urlpatterns = [
     path('logout/', views.logout_user),
     path('index/', views.index),
     path('informar_dados_ficha/', views.informar_dados_ficha, name='informar_dados_ficha'),
-    path('informar_dados_ficha/submit', views.set_informar_dados_ficha,),
+    path('informar_dados_ficha/submit', views.set_informar_dados_ficha),
+    path('localizar_fichas/', views.localizar_fichas, name='localizar_fichas'),
+    path('localizar_fichas/submit', views.set_localizar_fichas),
+    path('acompanhar_ficha/', views.acompanhar_ficha, name='acompanhar_ficha'),
 ]
