@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gestao_fichas_funcionais import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('login/',views.login_page, name='login_page'),
+    path('login/submit', views.login_submit),
+    path('logout/', views.logout_user),
+    path('index/', views.index),
+    path('informar_dados_ficha/', views.informar_dados_ficha, name='informar_dados_ficha'),
+    path('informar_dados_ficha/submit', views.set_informar_dados_ficha,),
 ]
