@@ -111,31 +111,50 @@
     <div class="row">
       <div class="col-md-12">
         
-        <table id="userTable" class="table table-striped">
+        <table id="userTable" class="table table-hover">
           <tr>
             <th>Matrícula</th>
             <th>Nome</th>
             <th>UTB</th>
             <th>Unidade</th>
+            <th>Status</th>
             
-            <th colspan="2" style="text-align: center;">Ações</th>
+            <th style="text-align: center;">Ações</th>
           </tr>
-          {% if gerencias %}
-          {% for gerencia in gerencias %}
+          {% if servidores %}
+          {% for gerencia in servidores %}
           <tr id="gerencia-{{gerencia.id}}">
               <td class="gerenciaMatricula gerenciaData" name="matricula">{{gerencia.matricula}}</td>
-              <td class="gerenciaNomeFuncionario gerenciaData" name="nome_funcionario">{{gerencia.nome_funcionario}}</td>
+              <td class="gerenciaNomeFuncionario gerenciaData" name="nome_funcionario">{{gerencia.nome}}</td>
+              {% if gerencia.utb %}
               <td class="gerenciaUtb gerenciaData" name="utb">{{gerencia.utb}}</td>
+              {% else %}
+              <td class="gerenciaUtb gerenciaData" name="utb"></td>
+              {% endif %}
+              
               <td class="gerenciaUnidade gerenciaData" name="unidade">{{gerencia.unidade}}</td>
+              {% if gerencia.status_recebido %}
+                {% if gerencia.data_status_recebido %}
+                  <td class="gerenciaStatus gerenciaData" name="status" style="color: #006600;">Recebido : {{gerencia.data_status_recebido}}</td>
+                {%else%}
+                  <td class="gerenciaStatus gerenciaData" name="status" style="color: #006600;">Recebido</td>
+                {%endif%}
+              
+              {% else %}
+              <td class="gerenciaStatus gerenciaData" name="status" style="color: "></td>
+              {% endif %}
               <td align="center">
                   <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
               </td>
+              <!--
               <td align="center">
                   <button class="btn btn-danger form-control" onClick="deleteGerencia({{gerencia.id}})">Deletar</button>
               </td>
+            -->
           </tr>
           {% endfor %}
           {% else %}
+            <!--
             <tr>
               <td>123</td>
               <td>teste</td>
@@ -148,6 +167,7 @@
                   <button class="btn btn-danger form-control" onClick="deleteGerencia({{gerencia.id}})">Deletar</button>
               </td>
             </tr>
+          -->
           {% endif %}
         </table>
       </div>
@@ -158,17 +178,72 @@
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel">Atualizar Servidor</h4>
+        <div class="row">        
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Atualizar Servidor</h4>
+          </div>
         </div>
         <form id="updateGerencia" action="">
         <div class="modal-body">
             <input class="form-control" id="form-id" type="hidden" name="formId"/>
+            
+            <div class="row">
+              <div class="col-md-3">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_lb_data_recebido()">
+                  <label class="custom-control-label" for="lb_check_recebido">Recebido</label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-check-inline" id="lb_data_recebido_id">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
+                    <input type="text" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+                </div>
+              </div>
+            </div>    
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_conferido" name="conferido" value="conferido" onclick="active_lb_data_conferido()">
+                  <label class="custom-control-label" for="lb_check_conferido">Conferido</label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-check-inline" id="lb_data_recebido_id">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
+                    <input type="text" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">
+                    <label class="custom-control-label" for="lb_check_encaminhado" style="font-size: 90%;">Encaminhado SEAD</label>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check-inline" id="">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
+                    <input type="text" class="form-control form-control-sm" id="form-data_encaminhado" name="formDataEncaminhado" value="">
+                </div>
+              </div>
+              <div class="col-md-4" id="">
+                <div class="form-group">
+                  <input class="form-control form-control-sm" id="form-num_oficio" type="text" name="formNumOficio" placeholder="Número Ofício" required>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
             <label for="matricula">Matrícula</label>
             <input class="form-control" id="form-matricula" type="text" name="formMatricula"/>
             <label for="nome_funcionario">Nome Servidor</label>
-            <input class="form-control" id="form-nome_funcionario" type="text" name="formNomeFuncionario"/>
+            <input class="form-control" id="form-nome_funcionario" type="text" name="formNome"/>
             <label for="utb">UTB</label>
             <input class="form-control" id="form-utb" type="text" name="formUtb"/>
             <label for="unidade">Unidade</label>

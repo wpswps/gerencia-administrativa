@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
+from .models import *
 
 # Create your views here.
 
@@ -49,14 +50,33 @@ def set_informar_dados_ficha(request):
 
 @login_required(login_url='/login/')
 def localizar_fichas(request):
-	return render(request, 'localizar_fichas.html')
+	relacao_all = RelacaoGeralServidor.objects.order_by('unidade').distinct('unidade')
+
+
+	return render(request, 'localizar_fichas.html', {'relacao_all':relacao_all})
 
 
 @login_required(login_url='/login/')
 def set_localizar_fichas(request):
+	unidade = request.POST.get('unidade')
+	request.session['unidade'] = unidade
+	#contexto = {'servidores': None}
+	'''
+	if request.method=='POST':
+		unidade = request.POST.get('unidade')
+		servidores = RelacaoGeralServidor.objects.filter(unidade=unidade)
+		contexto = {'servidores': servidores}
+		#qtd = len(list(contexto.values()))
+		#print("entrou no if. Valor unidade:", unidade, "qtd:", contexto['matricula'])
+		'''
+
 	return redirect('acompanhar_ficha')
 
 
 @login_required(login_url='/login/')
 def acompanhar_ficha(request):
-	return render(request, 'acompanhar_ficha.html')
+	relacao_all = RelacaoGeralServidor.objects.all()
+	unidade = request.session['unidade']
+	servidores = RelacaoGeralServidor.objects.filter(unidade=unidade).order_by('nome')
+
+	return render(request, 'acompanhar_ficha.html', {'servidores':servidores})

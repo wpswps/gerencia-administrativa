@@ -76,9 +76,6 @@
           <a class="nav-link" href="/index/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Acompanhar Ficha</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/informar_dados_ficha/">Informar Dados de Ficha</a>
         </li>
         <li class="nav-item">
@@ -107,7 +104,11 @@
 
         <form class="form-inline" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
           <label for="">Escolha Unidade:</label>
-          <select class="form-control" name="" id=""></select>
+            <select class="form-control" name="unidade" id="">
+            {% for r in relacao_all %}
+            <option value="{{r.unidade}}">{{r.unidade}}</option>
+            {% endfor %}
+          </select>
           <button type="submit" class="btn btn-primary">Localizar Funcionários</button>
         </form>
 
