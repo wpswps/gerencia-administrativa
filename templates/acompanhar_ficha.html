@@ -17,6 +17,8 @@
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 
+
+
   <style>
   .fakeimg {
     height: 200px;
@@ -102,7 +104,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="alert alert-primary" style="text-align: center;">
-          <strong style="align-items: center;">Resultado</strong>
+          <strong style="align-items: center;">Resultado - {{unidade}}</strong>
         </div>
       </div>
     </div>
@@ -115,9 +117,7 @@
           <tr>
             <th>Matrícula</th>
             <th>Nome</th>
-            <th>UTB</th>
-            <th>Unidade</th>
-            <th>Status</th>
+            <th colspan="10" style="text-align: center;">Status</th>
             
             <th style="text-align: center;">Ações</th>
           </tr>
@@ -125,24 +125,87 @@
           {% for gerencia in servidores %}
           <tr id="gerencia-{{gerencia.id}}">
               <td class="gerenciaMatricula gerenciaData" name="matricula">{{gerencia.matricula}}</td>
-              <td class="gerenciaNomeFuncionario gerenciaData" name="nome_funcionario">{{gerencia.nome}}</td>
-              {% if gerencia.utb %}
-              <td class="gerenciaUtb gerenciaData" name="utb">{{gerencia.utb}}</td>
-              {% else %}
-              <td class="gerenciaUtb gerenciaData" name="utb"></td>
-              {% endif %}
+              <td class="gerenciaNome gerenciaData" name="nome">{{gerencia.nome}}</td>
               
-              <td class="gerenciaUnidade gerenciaData" name="unidade">{{gerencia.unidade}}</td>
               {% if gerencia.status_recebido %}
-                {% if gerencia.data_status_recebido %}
-                  <td class="gerenciaStatus gerenciaData" name="status" style="color: #006600;">Recebido : {{gerencia.data_status_recebido}}</td>
-                {%else%}
-                  <td class="gerenciaStatus gerenciaData" name="status" style="color: #006600;">Recebido</td>
-                {%endif%}
+                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;">
+                  {{gerencia.status_recebido}}
+                </td>
+              {%else%}
+                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;"></td>
+              {%endif%}
               
+
+              {% if gerencia.data_status_recebido %}
+                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;">{{gerencia.data_status_recebido}}
+                </td>
               {% else %}
-              <td class="gerenciaStatus gerenciaData" name="status" style="color: "></td>
+                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;"></td>
               {% endif %}
+
+
+              {% if gerencia.status_conferido %}
+                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}</td>
+              {%else%}
+                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;">Conferido</td>
+              {%endif%}
+
+
+              {% if gerencia.data_status_conferido %}
+                <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}
+                </td>
+              {% else %}
+              <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: "></td>
+              {% endif %}
+
+
+              {% if gerencia.status_encaminhado_sead %}
+                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD : {{gerencia.status_encaminhado_sead}}</td>
+              {%else%}
+                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD</td>
+              {%endif%}
+
+
+              {% if gerencia.data_status_encaminhado_sead %}
+                <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: #006600;">{{gerencia.data_status_encaminhado_sead}}</td>
+              {% else %}
+              <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: "></td>
+              {% endif %}
+
+              {% if gerencia.num_oficio_encaminhado_sead %}
+                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: ">
+                  {{gerencia.num_oficio_encaminhado_sead}}
+                </td>
+              {% else %}
+                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: "></td>
+              {% endif %}
+
+              {% if gerencia.status_devolucao %}
+                <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;">{{gerencia.status_devolucao}}</td>
+              {%else%}
+                  <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;"></td>
+              {%endif%}
+
+              {% if gerencia.data_status_devolucao %}
+                <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: #006600;">{{gerencia.data_status_devolucao}}</td>
+
+              {% else %}
+              <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: "></td>
+              {% endif %}
+
+              {% if gerencia.status_encaminhado_gabinete %}
+                <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">{{gerencia.status_encaminhado_gabinete}}</td>
+              {%else%}
+                  <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">Gabinete</td>
+              {%endif%}
+
+
+              {% if gerencia.data_status_encaminhado_gabinete %}
+                <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: #006600;">{{gerencia.data_status_encaminhado_gabinete}}</td>
+              {% else %}
+              <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: "></td>
+              {% endif %}
+
               <td align="center">
                   <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
               </td>
@@ -154,114 +217,275 @@
           </tr>
           {% endfor %}
           {% else %}
-            <!--
-            <tr>
-              <td>123</td>
-              <td>teste</td>
-              <td>212</td>
-              <td>UnidadeTeste</td>
-              <td align="center">
-                  <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
-              </td>
-              <td align="center">
-                  <button class="btn btn-danger form-control" onClick="deleteGerencia({{gerencia.id}})">Deletar</button>
-              </td>
-            </tr>
-          -->
+          
           {% endif %}
         </table>
       </div>
     </div>
 
   </div>
+
+<!--Script de mascara-->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+  
+  <!-- endscript-->
+
+  <script>
+    $(document).ready(function($) {
+      $('#form-data_encaminhado').mask('00-00-0000');
+      $('#form-data_recebido').mask('00-00-0000');
+      $('#form-data_conferido').mask('00-00-0000');
+      $('#form-data_devolvido').mask('00-00-0000');
+      $('#form-data_gabinete').mask('00-00-0000');
+    });
+
+    $(document).ready(function($){
+      $("#lb_check_encaminhado").click(function(){
+        $("#form-status_encaminhado").val("Encaminhado");
+      });
+    });
+
+    $(document).ready(function($){
+      $("#lb_check_recebido").click(function(){
+        $("#form-status_recebido").val("Recebido");
+      });
+    });
+
+    $(document).ready(function($){
+      $("#lb_check_conferido").click(function(){
+        $("#form-status_conferido").val("Conferido");
+      });
+    });
+
+    $(document).ready(function($){
+      $("#lb_check_devolvido").click(function(){
+        $("#form-status_devolvido").val("Devolvido");
+      });
+    });
+
+    $(document).ready(function($){
+      $("#lb_check_gabinete").click(function(){
+        $("#form-status_gabinete").val("Gabinete");
+      });
+    });
+
+
+    $(function() {
+    $(document).on('click','#lb_check_recebido', function (e) {
+      if ($(this).is(":checked")) {
+        //$("#lb_data_recebido_id").show();
+      } else {
+        //$("#form-status_recebido").hide();
+        $("#form-status_recebido").val("");
+        $("#form-data_recebido").val("");
+      }
+    });
+  });
+
+    $(function() {
+    $(document).on('click','#lb_check_conferido', function (e) {
+      if ($(this).is(":checked")) {
+        //$("#lb_data_recebido_id").show();
+      } else {
+        //$("#form-status_recebido").hide();
+        $("#form-status_conferido").val("");
+        $("#form-data_conferido").val("");
+      }
+    });
+  });
+
+    $(function() {
+    $(document).on('click','#lb_check_encaminhado', function (e) {
+      if ($(this).is(":checked")) {
+        //$("#lb_data_recebido_id").show();
+      } else {
+        //$("#form-status_recebido").hide();
+        $("#form-status_encaminhado").val("");
+        $("#form-data_encaminhado").val("");
+        $("#form-num_oficio").val("");
+      }
+    });
+  });
+
+    $(function() {
+    $(document).on('click','#lb_check_devolvido', function (e) {
+      if ($(this).is(":checked")) {
+        //$("#lb_data_recebido_id").show();
+      } else {
+        //$("#form-status_recebido").hide();
+        $("#form-status_devolvido").val("");
+        $("#form-data_devolvido").val("");
+        //$("#form-num_oficio").val("");
+      }
+    });
+  });
+
+    $(function() {
+    $(document).on('click','#lb_check_gabinete', function (e) {
+      if ($(this).is(":checked")) {
+        //$("#lb_data_recebido_id").show();
+      } else {
+        //$("#form-status_recebido").hide();
+        $("#form-status_gabinete").val("");
+        $("#form-data_gabinete").val("");
+        //$("#form-num_oficio").val("");
+      }
+    });
+  });
+
+
+  </script>
+
+
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="row">        
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="myModalLabel">Atualizar Servidor</h4>
+            <h5 class="modal-title" id="myModalLabel">Atualizar Servidor</h5>
           </div>
         </div>
         <form id="updateGerencia" action="">
         <div class="modal-body">
             <input class="form-control" id="form-id" type="hidden" name="formId"/>
-            
+            <hr>
             <div class="row">
               <div class="col-md-3">
                 <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_lb_data_recebido()">
+                  <label class="custom-control-label" for="lb_check_recebido">Matricula</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-matricula" name="formMatricula" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="lb_nome">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Nome</label>
+                    <input type="text" class="form-control form-control-sm" id="form-nome" name="formNome" value="">
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido">
                   <label class="custom-control-label" for="lb_check_recebido">Recebido</label>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-status_recebido" name="formStatusRecebido" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div class="form-check-inline" id="lb_data_recebido_id">
                   <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
-                    <input type="text" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+                    <input type="text" class="form-control form-control-sm" id="form-data_recebido" name="formDataRecebido" value="">
                 </div>
               </div>
             </div>    
-
+            <hr>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="lb_check_conferido" name="conferido" value="conferido" onclick="active_lb_data_conferido()">
                   <label class="custom-control-label" for="lb_check_conferido">Conferido</label>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-status_conferido" name="formStatusConferido" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div class="form-check-inline" id="lb_data_recebido_id">
                   <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
-                    <input type="text" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+                    <input type="text" class="form-control form-control-sm" id="form-data_conferido" name="formDataConferido" value="">
                 </div>
               </div>
             </div>
+            <hr>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                   <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">
                     <label class="custom-control-label" for="lb_check_encaminhado" style="font-size: 90%;">Encaminhado SEAD</label>
                   </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-status_encaminhado" name="formStatusEncaminhado" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div class="form-check-inline" id="">
                   <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
                     <input type="text" class="form-control form-control-sm" id="form-data_encaminhado" name="formDataEncaminhado" value="">
                 </div>
               </div>
-              <div class="col-md-4" id="">
+
+              <div class="col-md-3" id="">
                 <div class="form-group">
-                  <input class="form-control form-control-sm" id="form-num_oficio" type="text" name="formNumOficio" placeholder="Número Ofício" required>
+                  <input class="form-control form-control-sm" id="form-num_oficio" type="text" name="formNumOficio" placeholder="Número Ofício" value="">
+                </div>
+              </div>
+              
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_devolvido" name="devolvido" value="devolvido" onclick="active_lb_data_conferido()">
+                  <label class="custom-control-label" for="lb_check_devolvido">Devolvido</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-status_devolvido" name="formStatusDevolvido" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="lb_data_devolvido_id">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
+                    <input type="text" class="form-control form-control-sm" id="form-data_devolvido" name="formDataDevolvido" value="">
                 </div>
               </div>
             </div>
-
+            <hr>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_gabinete" name="enc.gabinete" value="enc.gabinete" onclick="active_lb_data_conferido()">
+                  <label class="custom-control-label" for="lb_check_gabinete">Encaminhado Gabinete</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="">
+                    <input type="text" class="form-control form-control-sm" id="form-status_gabinete" name="formStatusEncGabinete" value="">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check-inline" id="lb_data_gabinete_id">
+                  <label class="form-check-label" for="" style="font-size: 90%;">Data:</label>
+                    <input type="text" class="form-control form-control-sm" id="form-data_gabinete" name="formDataEncGabinete" value="">
+                </div>
+              </div>
+            </div>
             <hr>
 
-            <label for="matricula">Matrícula</label>
-            <input class="form-control" id="form-matricula" type="text" name="formMatricula"/>
-            <label for="nome_funcionario">Nome Servidor</label>
-            <input class="form-control" id="form-nome_funcionario" type="text" name="formNome"/>
-            <label for="utb">UTB</label>
-            <input class="form-control" id="form-utb" type="text" name="formUtb"/>
-            <label for="unidade">Unidade</label>
-            <input class="form-control" id="form-unidade" type="text" name="formUnidade"/>
-            <label for="cidade">Cidade</label>
-            <input class="form-control" id="form-cidade" type="text" name="formCidade"/>
-            <label for="cargo">Cargo</label>
-            <input class="form-control" id="form-cargo" type="text" name="formCargo"/>
-            <label for="funcao">Funcao</label>
-            <input class="form-control" id="form-funcao" type="text" name="formFuncao"/>
-            <label for="cpf">CPF</label>
-            <input class="form-control" id="form-cpf" type="text" name="formCPF"/>
-            <label for="nivel">Nivel</label>
-            <input class="form-control" id="form-nivel" type="text" name="formNivel"/>
-            <label for="recebido">Recebido</label>
-            <input class="form-control" id="form-recebido" type="text" name="formRecebido"/>
-            <label for="conferido">Conferido</label>
-            <input class="form-control" id="form-conferido" type="text" name="formConferido"/>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary" >Salvar</button>
@@ -281,7 +505,124 @@
   </div>
   <br>
   {% block javascript %}
-  
+  <script>
+
+//Update Servidor
+$("form#updateGerencia").submit(function() {
+    var idInput = $('input[name="formId"]').val().trim();
+    var matriculaInput = $('input[name="formMatricula"]').val().trim();
+    var nomeInput = $('input[name="formNome"]').val().trim();
+    var numGerenciaInput = $('input[name="formStatusRecebido"]').val().trim();
+    var nomeDirecaoInput = $('input[name="formDataRecebido"]').val().trim();
+    var emailInput = $('input[name="formStatusConferido"]').val().trim();
+    var telefoneInput = $('input[name="formDataConferido"]').val().trim();
+    var cepInput = $('input[name="formStatusEncaminhado"]').val().trim();
+    var cidadeInput = $('input[name="formDataEncaminhado"]').val().trim();
+    var ruaInput = $('input[name="formNumOficio"]').val().trim();
+    var bairroInput = $('input[name="formStatusDevolvido"]').val().trim();
+    var numeroInput = $('input[name="formDataDevolvido"]').val().trim();
+    var complementoInput = $('input[name="formStatusEncGabinete"]').val().trim();
+    var ufInput = $('input[name="formDataEncGabinete"]').val().trim();
+    
+        // Create Ajax Call
+        $.ajax({
+            url: '{% url "update_servidor" %}',
+            data: {
+                'id': idInput,
+                'matricula': matriculaInput,
+                'nome': nomeInput,
+                'status_recebido': numGerenciaInput,
+                'data_status_recebido': nomeDirecaoInput,
+                'status_conferido': emailInput,
+                'data_status_conferido': telefoneInput,
+                'status_encaminhado_sead': cepInput,
+                'data_status_encaminhado_sead': cidadeInput,
+                'num_oficio_encaminhado_sead': ruaInput,
+                'status_devolucao': bairroInput,
+                'data_status_devolucao': numeroInput,
+                'status_encaminhado_gabinete': complementoInput,
+                'data_status_encaminhado_gabinete': ufInput
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.gerencia) {
+                  updateToGerenciaTable(data.gerencia);
+                }
+            }
+        });
+      
+    $('form#updateGerencia').trigger("reset");
+    $('#myModal').modal('hide');
+    return false;
+});
+
+//Update Django Ajax Call
+function editGerencia(id) {
+  if (id) {
+    tr_id = "#gerencia-" + id;
+    matricula = $(tr_id).find(".gerenciaMatricula").text();
+    nome = $(tr_id).find(".gerenciaNome").text();
+    status_recebido = $(tr_id).find(".gerenciaStatusRecebido").text();
+    data_status_recebido = $(tr_id).find(".gerenciaDataStatusRecebido").text();
+    status_conferido = $(tr_id).find(".gerenciaStatusConferido").text();
+    data_status_conferido = $(tr_id).find(".gerenciaDataStatusConferido").text();
+    status_encaminhado_sead = $(tr_id).find(".gerenciaStatusEncaminhado").text();
+    data_status_encaminhado_sead = $(tr_id).find(".gerenciaDataStatusEncaminhado").text();
+    num_oficio_encaminhado_sead = $(tr_id).find(".gerenciaNumeroOficio").text();
+    status_devolucao = $(tr_id).find(".gerenciaStatusDevolucao").text();
+    data_status_devolucao = $(tr_id).find(".gerenciaDataStatusDevolucao").text();
+    status_encaminhado_gabinete = $(tr_id).find(".gerenciaStatusGabinete").text();
+    data_status_encaminhado_gabinete = $(tr_id).find(".gerenciaDataStatusGabinete").text();
+    $('#form-id').val(id);
+    $('#form-matricula').val(matricula);
+    $('#form-nome').val(nome);
+    $('#form-status_recebido').val(status_recebido);
+    $('#form-data_recebido').val(data_status_recebido);
+    $('#form-status_conferido').val(status_conferido);
+    $('#form-data_conferido').val(data_status_conferido);
+    $('#form-status_encaminhado').val(status_encaminhado_sead);
+    $('#form-data_encaminhado').val(data_status_encaminhado_sead);
+    $('#form-num_oficio').val(num_oficio_encaminhado_sead);
+    $('#form-status_devolvido').val(status_devolucao);
+    $('#form-data_devolvido').val(data_status_devolucao);
+    $('#form-status_gabinete').val(status_encaminhado_gabinete);
+    $('#form-data_gabinete').val(data_status_encaminhado_gabinete);
+  }
+}
+
+function updateToGerenciaTable(gerencia){
+  $("#userTable #gerencia-" + gerencia.id).children(".gerenciaData").each(function() {
+    var attr = $(this).attr("name");
+    if (attr == "matricula"){
+      $(this).text(gerencia.matricula);
+    } else if (attr == "nome"){
+      $(this).text(gerencia.nome);
+    } else if (attr == "status_recebido"){
+      $(this).text(gerencia.status_recebido);
+    } else if (attr == "data_status_recebido"){
+      $(this).text(gerencia.data_status_recebido);
+    } else if (attr == "status_conferido"){
+      $(this).text(gerencia.status_conferido);
+    } else if (attr == "data_status_conferido"){
+      $(this).text(gerencia.data_status_conferido);
+    } else if (attr == "status_encaminhado_sead"){
+      $(this).text(gerencia.status_encaminhado_sead);
+    } else if (attr == "data_status_encaminhado_sead"){
+      $(this).text(gerencia.data_status_encaminhado_sead);
+    } else if (attr == "num_oficio_encaminhado_sead"){
+      $(this).text(gerencia.num_oficio_encaminhado_sead);
+    } else if (attr == "status_devolucao"){
+      $(this).text(gerencia.status_devolucao)
+    } else if (attr == "data_status_devolucao"){
+      $(this).text(gerencia.data_status_devolucao)
+    } else if (attr == "status_encaminhado_gabinete"){
+      $(this).text(gerencia.status_encaminhado_gabinete)
+    } else {
+      $(this).text(gerencia.data_status_encaminhado_gabinete);
+    }
+  })
+}
+  </script>
   {% endblock javascript %}
 
 </body>

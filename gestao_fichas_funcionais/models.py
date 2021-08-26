@@ -33,6 +33,7 @@ class RelacaoGeralServidor(models.Model):
 	status_encaminhado_sead = models.CharField(max_length=100, blank=True, null=True)
 	data_status_encaminhado_sead = models.CharField(max_length=100, blank=True, null=True)
 	user_status_encaminhado_sead = models.CharField(max_length = 200, null=True, blank=True)
+	num_oficio_encaminhado_sead = models.CharField(max_length = 200, null=True, blank=True)
 	
 	
 	status_devolucao = models.CharField(max_length=100, blank=True, null=True)

@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
 from .models import *
 
+from django.views.generic import View
+from django.http import JsonResponse
+
 # Create your views here.
 
 def login_page(request):
@@ -79,4 +82,65 @@ def acompanhar_ficha(request):
 	unidade = request.session['unidade']
 	servidores = RelacaoGeralServidor.objects.filter(unidade=unidade).order_by('nome')
 
-	return render(request, 'acompanhar_ficha.html', {'servidores':servidores})
+	return render(request, 'acompanhar_ficha.html', {'servidores':servidores, 'unidade':unidade})
+
+
+
+class UpdateServidor(View):
+	def get(self, request):
+		id1 = request.GET.get('id', None)
+		matricula1 = request.GET.get('matricula', None)
+		nome1 = request.GET.get('nome', None)
+		status_recebido1 = request.GET.get('status_recebido', None)
+		data_status_recebido1 = request.GET.get('data_status_recebido', None)
+		status_conferido1 = request.GET.get('status_conferido', None)
+		data_status_conferido1 = request.GET.get('data_status_conferido', None)
+		status_encaminhado_sead1 = request.GET.get('status_encaminhado_sead', None)
+		data_status_encaminhado_sead1 = request.GET.get('data_status_encaminhado_sead', None)
+		num_oficio_encaminhado_sead1 = request.GET.get('num_oficio_encaminhado_sead', None)
+		status_devolucao1 = request.GET.get('status_devolucao', None)
+		data_status_devolucao1 = request.GET.get('data_status_devolucao', None)
+		status_encaminhado_gabinete1 = request.GET.get('status_encaminhado_gabinete', None)
+		data_status_encaminhado_gabinete1 = request.GET.get('data_status_encaminhado_gabinete', None)
+
+
+
+
+
+
+
+
+
+
+
+
+		obj = RelacaoGeralServidor.objects.get(id=id1)
+		obj.matricula = matricula1
+		obj.nome = nome1
+		obj.status_recebido = status_recebido1
+		obj.data_status_recebido = data_status_recebido1
+		obj.status_conferido = status_conferido1
+		obj.data_status_conferido = data_status_conferido1
+		obj.status_encaminhado_sead = status_encaminhado_sead1
+		obj.data_status_encaminhado_sead = data_status_encaminhado_sead1
+		obj.num_oficio_encaminhado_sead = num_oficio_encaminhado_sead1
+		obj.status_devolucao = status_devolucao1
+		obj.data_status_devolucao = data_status_devolucao1
+		obj.status_encaminhado_gabinete = status_encaminhado_gabinete1
+		obj.data_status_encaminhado_gabinete = data_status_encaminhado_gabinete1
+
+		obj.save()
+
+		gerencia = {'id':obj.id,'matricula':obj.matricula,'nome':obj.nome,'status_recebido':obj.status_recebido,
+		'data_status_recebido':obj.data_status_recebido,'status_conferido':obj.status_conferido,
+		'data_status_conferido':obj.data_status_conferido,'status_encaminhado_sead':obj.status_encaminhado_sead,
+		'data_status_encaminhado_sead':obj.data_status_encaminhado_sead,
+		'num_oficio_encaminhado_sead':obj.num_oficio_encaminhado_sead,'status_devolucao':obj.status_devolucao,
+		'data_status_devolucao':obj.data_status_devolucao,'status_encaminhado_gabinete':obj.status_encaminhado_gabinete,
+		'data_status_encaminhado_gabinete':obj.data_status_encaminhado_gabinete}
+
+		data = {
+		'gerencia': gerencia
+		}
+
+		return JsonResponse(data)
