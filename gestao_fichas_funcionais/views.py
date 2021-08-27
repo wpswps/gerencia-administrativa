@@ -7,6 +7,8 @@ from .models import *
 from django.views.generic import View
 from django.http import JsonResponse
 
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 def login_page(request):
@@ -83,6 +85,46 @@ def acompanhar_ficha(request):
 	servidores = RelacaoGeralServidor.objects.filter(unidade=unidade).order_by('nome')
 
 	return render(request, 'acompanhar_ficha.html', {'servidores':servidores, 'unidade':unidade})
+
+
+
+
+@csrf_exempt
+def update_servidor(request):
+	id = request.POST.get('id','')
+	tipo = request.POST.get('type','')
+	value = request.POST.get('value','')
+	servidor = RelacaoGeralServidor.objects.get(id=id)
+	if tipo=="matricula":
+		servidor.matricula=value
+	if tipo=="nome":
+		servidor.nome=value
+	if tipo=="status_recebido":
+		servidor.status_recebido=value
+	if tipo=="data_status_recebido":
+		servidor.data_status_recebido=value
+	if tipo=="status_conferido":
+		servidor.status_conferido=value
+	if tipo=="data_status_conferido":
+		servidor.data_status_conferido=value
+	if tipo=="status_encaminhado_sead":
+		servidor.status_encaminhado_sead=value
+	if tipo=="data_status_encaminhado_sead":
+		servidor.data_status_encaminhado_sead=value
+	if tipo=="num_oficio_encaminhado_sead":
+		servidor.num_oficio_encaminhado_sead=value
+	if tipo=="status_devolucao":
+		servidor.status_devolucao=value
+	if tipo=="data_status_devolucao":
+		servidor.data_status_devolucao=value
+	if tipo=="status_encaminhado_gabinete":
+		servidor.status_encaminhado_gabinete=value
+	if tipo=="data_status_encaminhado_gabinete":
+		servidor.data_status_encaminhado_gabinete=value
+
+	servidor.save()
+	return JsonResponse({"success":"Updated"})
+
 
 
 

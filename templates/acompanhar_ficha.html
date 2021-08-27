@@ -100,7 +100,7 @@
     </div>  
   </nav>
 {% block content %}
-  <div class="container" style="margin-top:30px" id="container">
+  <div class="container-lx mt-3 border" style="margin-top:30px; background-color: ;" id="container">
     <div class="row">
       <div class="col-sm-12">
         <div class="alert alert-primary" style="text-align: center;">
@@ -115,105 +115,59 @@
         
         <table id="userTable" class="table table-hover">
           <tr>
-            <th>Matrícula</th>
-            <th>Nome</th>
-            <th colspan="10" style="text-align: center;">Status</th>
             
-            <th style="text-align: center;">Ações</th>
+            <th style="font-size: 80%;">Matrícula</th>
+            <th style="font-size: 80%;">Nome</th>
+            <th style="font-size: 80%;">Recebido</th>
+            <th style="font-size: 80%;">Data</th>
+            <th style="font-size: 80%;">Conferido</th>
+            <th style="font-size: 80%;">Data</th>
+            <th style="font-size: 80%;">Encaminhado SEAD</th>
+            <th style="font-size: 80%;">Data</th>
+            <th style="font-size: 80%;">Ofício</th>
+            <th style="font-size: 80%;">Devolução</th>
+            <th style="font-size: 80%;">Data Devolução</th>
+            <th style="font-size: 80%;">Gabinete</th>
+            <th style="font-size: 80%;">Data</th>            
+            <th style="text-align: center; font-size: 80%;">Ações</th>
           </tr>
           {% if servidores %}
           {% for gerencia in servidores %}
-          <tr id="gerencia-{{gerencia.id}}">
-              <td class="gerenciaMatricula gerenciaData" name="matricula">{{gerencia.matricula}}</td>
-              <td class="gerenciaNome gerenciaData" name="nome">{{gerencia.nome}}</td>
+          <tr>
               
-              {% if gerencia.status_recebido %}
-                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;">
-                  {{gerencia.status_recebido}}
-                </td>
-              {%else%}
-                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;"></td>
-              {%endif%}
+              <td class="editable" data-id="{{gerencia.id}}" data-type="matricula" style="font-size: 80%;">{{gerencia.matricula}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="nome" style="font-size: 80%;">{{gerencia.nome}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_recebido" style="font-size: 80%;">{{gerencia.status_recebido}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_recebido" style="font-size: 80%;">
+                {% if gerencia.data_status_recebido %}
+                {{gerencia.data_status_recebido}}</td>
+                {% else %}
+
+                {%endif%}
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_conferido" style="font-size: 80%;">
+              {% if gerencia.status_conferido %}{{gerencia.status_conferido}}{%else%}{%endif%}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_conferido" style="font-size: 80%;">{{gerencia.data_status_conferido}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_sead" style="font-size: 80%;">{{gerencia.status_encaminhado_sead}}</td>
               
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_sead" style="font-size: 80%;">{{gerencia.data_status_encaminhado_sead}}</td>
+              
+              <td class="editable" data-id="{{gerencia.id}}" data-type="num_oficio_encaminhado_sead" style="font-size: 80%;">{{gerencia.num_oficio_encaminhado_sead}}</td>
 
-              {% if gerencia.data_status_recebido %}
-                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;">{{gerencia.data_status_recebido}}
-                </td>
-              {% else %}
-                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;"></td>
-              {% endif %}
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_devolucao" style="font-size: 80%;">{{gerencia.status_devolucao}}</td>
 
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_devolucao" style="font-size: 80%;">{{gerencia.data_status_devolucao}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_gabinete" style="font-size: 80%;">{{gerencia.status_encaminhado_gabinete}}</td>
 
-              {% if gerencia.status_conferido %}
-                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}</td>
-              {%else%}
-                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;">Conferido</td>
-              {%endif%}
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_gabinete" style="font-size: 80%;">{{gerencia.data_status_encaminhado_gabinete}}</td>
 
-
-              {% if gerencia.data_status_conferido %}
-                <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}
-                </td>
-              {% else %}
-              <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: "></td>
-              {% endif %}
-
-
-              {% if gerencia.status_encaminhado_sead %}
-                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD : {{gerencia.status_encaminhado_sead}}</td>
-              {%else%}
-                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD</td>
-              {%endif%}
-
-
-              {% if gerencia.data_status_encaminhado_sead %}
-                <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: #006600;">{{gerencia.data_status_encaminhado_sead}}</td>
-              {% else %}
-              <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.num_oficio_encaminhado_sead %}
-                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: ">
-                  {{gerencia.num_oficio_encaminhado_sead}}
-                </td>
-              {% else %}
-                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.status_devolucao %}
-                <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;">{{gerencia.status_devolucao}}</td>
-              {%else%}
-                  <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;"></td>
-              {%endif%}
-
-              {% if gerencia.data_status_devolucao %}
-                <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: #006600;">{{gerencia.data_status_devolucao}}</td>
-
-              {% else %}
-              <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.status_encaminhado_gabinete %}
-                <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">{{gerencia.status_encaminhado_gabinete}}</td>
-              {%else%}
-                  <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">Gabinete</td>
-              {%endif%}
-
-
-              {% if gerencia.data_status_encaminhado_gabinete %}
-                <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: #006600;">{{gerencia.data_status_encaminhado_gabinete}}</td>
-              {% else %}
-              <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: "></td>
-              {% endif %}
-
+              <!--
               <td align="center">
                   <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
               </td>
-              <!--
+              -->
               <td align="center">
-                  <button class="btn btn-danger form-control" onClick="deleteGerencia({{gerencia.id}})">Deletar</button>
+                  <button class="btn btn-info btn-sm" onClick="window.location.reload();">Atualizar</button>
               </td>
-            -->
           </tr>
           {% endfor %}
           {% else %}
@@ -356,121 +310,58 @@
   {% block javascript %}
   <script>
 
-//Update Servidor
-$("form#updateGerencia").submit(function() {
-    var idInput = $('input[name="formId"]').val().trim();
-    var matriculaInput = $('input[name="formMatricula"]').val().trim();
-    var nomeInput = $('input[name="formNome"]').val().trim();
-    var numGerenciaInput = $('input[name="formStatusRecebido"]').val().trim();
-    var nomeDirecaoInput = $('input[name="formDataRecebido"]').val().trim();
-    var emailInput = $('input[name="formStatusConferido"]').val().trim();
-    var telefoneInput = $('input[name="formDataConferido"]').val().trim();
-    var cepInput = $('input[name="formStatusEncaminhado"]').val().trim();
-    var cidadeInput = $('input[name="formDataEncaminhado"]').val().trim();
-    var ruaInput = $('input[name="formNumOficio"]').val().trim();
-    var bairroInput = $('input[name="formStatusDevolvido"]').val().trim();
-    var numeroInput = $('input[name="formDataDevolvido"]').val().trim();
-    var complementoInput = $('input[name="formStatusEncGabinete"]').val().trim();
-    var ufInput = $('input[name="formDataEncGabinete"]').val().trim();
-    
-        // Create Ajax Call
+    $(document).ready(function(){
+      $(document).on("dblclick", ".editable",function(){
+        var value=$(this).text();
+        var input="<input type='text' class='input-data' value='"+value+"' class='form-control'>";
+        $(this).html(input);
+        $(this).removeClass("editable")
+      });
+
+      $(document).on("blur",".input-data",function(){
+        var value=$(this).val();
+        var td=$(this).parent("td");
+        $(this).remove();
+        td.html(value);
+        td.addClass("editable");
+        var type=td.data("type");
+        sendToServer(td.data("id"),value,type);
+      });
+
+      $(document).on("keypress",".input-data",function(e){
+        var key=e.which;
+        if (key==13){
+          var value=$(this).val();
+          var td=$(this).parent("td");
+          $(this).remove();
+          td.html(value);
+          td.addClass("editable");
+          var type=td.data("type");
+          sendToServer(td.data("id"),value,type);
+
+        }
+
+      });
+
+      function sendToServer(id,value,type){
+        console.log(id);
+        console.log(value);
+        console.log(type);
         $.ajax({
-            url: '{% url "update_servidor" %}',
-            data: {
-                'id': idInput,
-                'matricula': matriculaInput,
-                'nome': nomeInput,
-                'status_recebido': numGerenciaInput,
-                'data_status_recebido': nomeDirecaoInput,
-                'status_conferido': emailInput,
-                'data_status_conferido': telefoneInput,
-                'status_encaminhado_sead': cepInput,
-                'data_status_encaminhado_sead': cidadeInput,
-                'num_oficio_encaminhado_sead': ruaInput,
-                'status_devolucao': bairroInput,
-                'data_status_devolucao': numeroInput,
-                'status_encaminhado_gabinete': complementoInput,
-                'data_status_encaminhado_gabinete': ufInput
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.gerencia) {
-                  updateToGerenciaTable(data.gerencia);
-                }
-            }
+          url:"update_servidor",
+          type:"POST",
+          data:{id:id,type:type,value:value},
+        })
+        .done(function(response){
+          console.log(response);
+        })
+        .fail(function(){
+          console.log("Ocorreu Erro");
         });
-      
-    $('form#updateGerencia').trigger("reset");
-    $('#myModal').modal('hide');
-    return false;
-});
+      }
 
-//Update Django Ajax Call
-function editGerencia(id) {
-  if (id) {
-    tr_id = "#gerencia-" + id;
-    matricula = $(tr_id).find(".gerenciaMatricula").text();
-    nome = $(tr_id).find(".gerenciaNome").text();
-    status_recebido = $(tr_id).find(".gerenciaStatusRecebido").text();
-    data_status_recebido = $(tr_id).find(".gerenciaDataStatusRecebido").text();
-    status_conferido = $(tr_id).find(".gerenciaStatusConferido").text();
-    data_status_conferido = $(tr_id).find(".gerenciaDataStatusConferido").text();
-    status_encaminhado_sead = $(tr_id).find(".gerenciaStatusEncaminhado").text();
-    data_status_encaminhado_sead = $(tr_id).find(".gerenciaDataStatusEncaminhado").text();
-    num_oficio_encaminhado_sead = $(tr_id).find(".gerenciaNumeroOficio").text();
-    status_devolucao = $(tr_id).find(".gerenciaStatusDevolucao").text();
-    data_status_devolucao = $(tr_id).find(".gerenciaDataStatusDevolucao").text();
-    status_encaminhado_gabinete = $(tr_id).find(".gerenciaStatusGabinete").text();
-    data_status_encaminhado_gabinete = $(tr_id).find(".gerenciaDataStatusGabinete").text();
-    $('#form-id').val(id);
-    $('#form-matricula').val(matricula);
-    $('#form-nome').val(nome);
-    $('#form-status_recebido').val(status_recebido);
-    $('#form-data_recebido').val(data_status_recebido);
-    $('#form-status_conferido').val(status_conferido);
-    $('#form-data_conferido').val(data_status_conferido);
-    $('#form-status_encaminhado').val(status_encaminhado_sead);
-    $('#form-data_encaminhado').val(data_status_encaminhado_sead);
-    $('#form-num_oficio').val(num_oficio_encaminhado_sead);
-    $('#form-status_devolvido').val(status_devolucao);
-    $('#form-data_devolvido').val(data_status_devolucao);
-    $('#form-status_gabinete').val(status_encaminhado_gabinete);
-    $('#form-data_gabinete').val(data_status_encaminhado_gabinete);
-  }
-}
+    });
 
-function updateToGerenciaTable(gerencia){
-  $("#userTable #gerencia-" + gerencia.id).children(".gerenciaData").each(function() {
-    var attr = $(this).attr("name");
-    if (attr == "matricula"){
-      $(this).text(gerencia.matricula);
-    } else if (attr == "nome"){
-      $(this).text(gerencia.nome);
-    } else if (attr == "status_recebido"){
-      $(this).text(gerencia.status_recebido);
-    } else if (attr == "data_status_recebido"){
-      $(this).text(gerencia.data_status_recebido);
-    } else if (attr == "status_conferido"){
-      $(this).text(gerencia.status_conferido);
-    } else if (attr == "data_status_conferido"){
-      $(this).text(gerencia.data_status_conferido);
-    } else if (attr == "status_encaminhado_sead"){
-      $(this).text(gerencia.status_encaminhado_sead);
-    } else if (attr == "data_status_encaminhado_sead"){
-      $(this).text(gerencia.data_status_encaminhado_sead);
-    } else if (attr == "num_oficio_encaminhado_sead"){
-      $(this).text(gerencia.num_oficio_encaminhado_sead);
-    } else if (attr == "status_devolucao"){
-      $(this).text(gerencia.status_devolucao)
-    } else if (attr == "data_status_devolucao"){
-      $(this).text(gerencia.data_status_devolucao)
-    } else if (attr == "status_encaminhado_gabinete"){
-      $(this).text(gerencia.status_encaminhado_gabinete)
-    } else {
-      $(this).text(gerencia.data_status_encaminhado_gabinete);
-    }
-  })
-}
   </script>
   {% endblock javascript %}
 

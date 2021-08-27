@@ -30,5 +30,5 @@ urlpatterns = [
     path('localizar_fichas/submit', views.set_localizar_fichas),
     path('acompanhar_ficha/', views.acompanhar_ficha, name='acompanhar_ficha'),
 
-    path('update_servidor/', views.UpdateServidor.as_view(), name='update_servidor'),
+    path('acompanhar_ficha/update_servidor', views.update_servidor, name='update_servidor'),
 ]
