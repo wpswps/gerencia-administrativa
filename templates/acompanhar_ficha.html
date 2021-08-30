@@ -113,99 +113,44 @@
     <div class="row">
       <div class="col-md-12">
         
-        <table id="userTable" class="table table-hover">
+        <table id="servidores-table" class="table table-hover">
           <tr>
+            <th>#</th>
             <th>Matrícula</th>
             <th>Nome</th>
-            <th colspan="10" style="text-align: center;">Status</th>
-            
+            <th>Recebido</th>
+            <th>Data</th>
+            <th>Conferido</th>
+            <th>Data</th>
+            <th>Enc. Sead</th>
+            <th>Data</th>
+            <th>Dev. Colher Assinatura</th>
+            <th>Data</th>
+            <th>Devolvido GEAD</th>
+            <th>Data Devolução Contrato Assinado</th>
+            <th>Oficio Enc. Gabinete</th>
+            <th>Data</th>
             <th style="text-align: center;">Ações</th>
           </tr>
           {% if servidores %}
-          {% for gerencia in servidores %}
-          <tr id="gerencia-{{gerencia.id}}">
-              <td class="gerenciaMatricula gerenciaData" name="matricula">{{gerencia.matricula}}</td>
-              <td class="gerenciaNome gerenciaData" name="nome">{{gerencia.nome}}</td>
-              
-              {% if gerencia.status_recebido %}
-                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;">
-                  {{gerencia.status_recebido}}
-                </td>
-              {%else%}
-                <td class="gerenciaStatusRecebido gerenciaData" name="status_recebido" style="color: #006600;"></td>
-              {%endif%}
-              
-
-              {% if gerencia.data_status_recebido %}
-                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;">{{gerencia.data_status_recebido}}
-                </td>
-              {% else %}
-                <td class="gerenciaDataStatusRecebido gerenciaData" name="data_status_recebido" style="color: #006600;"></td>
-              {% endif %}
-
-
-              {% if gerencia.status_conferido %}
-                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}</td>
-              {%else%}
-                  <td class="gerenciaStatusConferido gerenciaData" name="status_conferido" style="color: #006600;">Conferido</td>
-              {%endif%}
-
-
-              {% if gerencia.data_status_conferido %}
-                <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: #006600;"> {{gerencia.data_status_conferido}}
-                </td>
-              {% else %}
-              <td class="gerenciaDataStatusConferido gerenciaData" name="data_status_conferido" style="color: "></td>
-              {% endif %}
-
-
-              {% if gerencia.status_encaminhado_sead %}
-                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD : {{gerencia.status_encaminhado_sead}}</td>
-              {%else%}
-                  <td class="gerenciaStatusEncaminhado gerenciaData" name="status_encaminhado_sead" style="color: #006600;">Encaminhado SEAD</td>
-              {%endif%}
-
-
-              {% if gerencia.data_status_encaminhado_sead %}
-                <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: #006600;">{{gerencia.data_status_encaminhado_sead}}</td>
-              {% else %}
-              <td class="gerenciaDataStatusEncaminhado gerenciaData" name="data_status_encaminhado_sead" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.num_oficio_encaminhado_sead %}
-                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: ">
-                  {{gerencia.num_oficio_encaminhado_sead}}
-                </td>
-              {% else %}
-                <td class="gerenciaNumeroOficio gerenciaData" name="num_oficio_encaminhado_sead" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.status_devolucao %}
-                <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;">{{gerencia.status_devolucao}}</td>
-              {%else%}
-                  <td class="gerenciaStatusDevolucao gerenciaData" name="status_devolucao" style="color: #006600;"></td>
-              {%endif%}
-
-              {% if gerencia.data_status_devolucao %}
-                <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: #006600;">{{gerencia.data_status_devolucao}}</td>
-
-              {% else %}
-              <td class="gerenciaDataStatusDevolucao gerenciaData" name="data_status_devolucao" style="color: "></td>
-              {% endif %}
-
-              {% if gerencia.status_encaminhado_gabinete %}
-                <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">{{gerencia.status_encaminhado_gabinete}}</td>
-              {%else%}
-                  <td class="gerenciaStatusGabinete gerenciaData" name="status_encaminhado_gabinete" style="color: #006600;">Gabinete</td>
-              {%endif%}
-
-
-              {% if gerencia.data_status_encaminhado_gabinete %}
-                <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: #006600;">{{gerencia.data_status_encaminhado_gabinete}}</td>
-              {% else %}
-              <td class="gerenciaDataStatusGabinete gerenciaData" name="data_status_encaminhado_gabinete" style="color: "></td>
-              {% endif %}
-
+          {% for servidor in servidores %}
+          <tr>
+              <td>{{servidor.id}}</td>
+              <td>{{servidor.matricula}}</td>
+              <td>{{servidor.nome}}</td>
+              <td>{{servidor.status_recebido}}</td>
+              <td>{{servidor.data_status_recebido}}</td>
+              <td>{{servidor.status_conferido}}</td>
+              <td>{{servidor.data_status_conferido}}</td>
+              <td>{{servidor.status_encaminhado_sead}}</td>
+              <td>{{servidor.data_status_encaminhado_sead}}</td>
+              <td>{{servidor.status_devolucao_colher_assinatura}}</td>
+              <td>{{servidor.data_status_devolucao_colher_assinatura}}</td>
+              <td>{{servidor.data_devolucao_contrato_assinado}}</td>
+              <td>{{servidor.status_devolucao}}</td>
+              <td>{{servidor.data_status_devolucao}}</td>
+              <td>{{servidor.status_encaminhado_gabinete}}</td>
+              <td>{{servidor.data_status_encaminhado_gabinete}}</td>
               <td align="center">
                   <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
               </td>

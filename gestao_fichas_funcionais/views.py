@@ -144,3 +144,9 @@ class UpdateServidor(View):
 		}
 
 		return JsonResponse(data)
+
+
+
+def servidores_list(request):
+	servidores = RelacaoGeralServidor.objects.all()
+	return render(request, 'acompanhar_ficha.html', {'servidores': servidores})
