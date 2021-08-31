@@ -110,69 +110,139 @@
     </div>
     <hr>
 
+    <style>
+      .table          { overflow-y: auto; height: 100px; }
+      .table thead th { position: sticky; top: 0; }
+
+    </style>
+
     <div class="row">
       <div class="col-md-12">
         
         <table id="userTable" class="table table-hover">
+          <thead>
+            
+          
           <tr>
             
-            <th style="font-size: 80%;">Matrícula</th>
-            <th style="font-size: 80%;">Nome</th>
-            <th style="font-size: 80%;">Recebido</th>
-            <th style="font-size: 80%;">Data</th>
-            <th style="font-size: 80%;">Conferido</th>
-            <th style="font-size: 80%;">Data</th>
-            <th style="font-size: 80%;">Encaminhado SEAD</th>
-            <th style="font-size: 80%;">Data</th>
-            <th style="font-size: 80%;">Ofício</th>
-            <th style="font-size: 80%;">Devolução</th>
-            <th style="font-size: 80%;">Data Devolução</th>
-            <th style="font-size: 80%;">Gabinete</th>
-            <th style="font-size: 80%;">Data</th>            
-            <th style="text-align: center; font-size: 80%;">Ações</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Matrícula</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Nome</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Recebido</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Conferido</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Encaminhado SEAD</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Ofício</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Retorno SEAD</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Ass. Contrato</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Enc.Gabinete</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Recondução SEAD</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Data</th>
+            <th style="font-size: 75%; background-color: #99ccff;">Matrícula</th>           
+            <!--
+            <th style="text-align: center; font-size: 80%; background-color: #b3b3cc;">
+              <button class="btn btn-info btn-sm" onClick="window.location.reload();">Atualizar</button>
+            </th>
+          -->
           </tr>
+          </thead>
+          
+            
+          
           {% if servidores %}
+          <tbody>
+
           {% for gerencia in servidores %}
+          
           <tr>
               
-              <td class="editable" data-id="{{gerencia.id}}" data-type="matricula" style="font-size: 80%;">{{gerencia.matricula}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="matricula" style="font-size: 80%; background-color: #f2f2f2">{{gerencia.matricula}}</td>
+              
               <td class="editable" data-id="{{gerencia.id}}" data-type="nome" style="font-size: 80%;">{{gerencia.nome}}</td>
-              <td class="editable" data-id="{{gerencia.id}}" data-type="status_recebido" style="font-size: 80%;">{{gerencia.status_recebido}}</td>
+              
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_recebido" style="font-size: 80%; background-color: #f0f5f5;">
+                {% if gerencia.status_recebido %}
+              {{gerencia.status_recebido}}{%else%}{%endif%}
+              </td>
+              
               <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_recebido" style="font-size: 80%;">
                 {% if gerencia.data_status_recebido %}
-                {{gerencia.data_status_recebido}}</td>
+                {{gerencia.data_status_recebido}}
                 {% else %}
-
                 {%endif%}
-              <td class="editable" data-id="{{gerencia.id}}" data-type="status_conferido" style="font-size: 80%;">
+              </td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_conferido" style="font-size: 80%; background-color: #fffae6;">
               {% if gerencia.status_conferido %}{{gerencia.status_conferido}}{%else%}{%endif%}</td>
-              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_conferido" style="font-size: 80%;">{{gerencia.data_status_conferido}}</td>
-              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_sead" style="font-size: 80%;">{{gerencia.status_encaminhado_sead}}</td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_conferido" style="font-size: 80%;">
+              {%if gerencia.data_status_conferido%}
+              {{gerencia.data_status_conferido}}
+              {%else%}{%endif%}
+
+              </td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_sead" style="font-size: 80%; background-color: #e6f2ff;">
+                {%if gerencia.status_encaminhado_sead%}{{gerencia.status_encaminhado_sead}}{%else%}{%endif%}
+              </td>
               
-              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_sead" style="font-size: 80%;">{{gerencia.data_status_encaminhado_sead}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_sead" style="font-size: 80%;">
+              {%if gerencia.data_status_encaminhado_sead%}{{gerencia.data_status_encaminhado_sead}}{%else%}{%endif%}
+              </td>
               
-              <td class="editable" data-id="{{gerencia.id}}" data-type="num_oficio_encaminhado_sead" style="font-size: 80%;">{{gerencia.num_oficio_encaminhado_sead}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="num_oficio_encaminhado_sead" style="font-size: 80%; background-color: #e6fff7">{%if gerencia.num_oficio_encaminhado_sead%}{{gerencia.num_oficio_encaminhado_sead}}{%else%}{%endif%}
+              </td>
 
-              <td class="editable" data-id="{{gerencia.id}}" data-type="status_devolucao" style="font-size: 80%;">{{gerencia.status_devolucao}}</td>
+              
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_retorno_sead" style="font-size: 80%; background-color: #f0f5f5">{%if gerencia.status_retorno_sead%}{{gerencia.status_retorno_sead}}{%else%}{%endif%}</td>
 
-              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_devolucao" style="font-size: 80%;">{{gerencia.data_status_devolucao}}</td>
-              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_gabinete" style="font-size: 80%;">{{gerencia.status_encaminhado_gabinete}}</td>
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_retorno_sead" style="font-size: 80%;">{%if gerencia.data_status_retorno_sead%}{{gerencia.data_status_retorno_sead}}{%else%}{%endif%}
+              </td>
 
-              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_gabinete" style="font-size: 80%;">{{gerencia.data_status_encaminhado_gabinete}}</td>
+
+
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_assinatura_contrato" style="font-size: 80%; background-color: #ffece6">{%if gerencia.status_assinatura_contrato%}{{gerencia.status_assinatura_contrato}}{%else%}{%endif%}</td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_assinatura_contrato" style="font-size: 80%;">{%if gerencia.data_status_assinatura_contrato%}{{gerencia.data_status_assinatura_contrato}}{%else%}{%endif%}
+              </td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_encaminhado_gabinete" style="font-size: 80%; background-color: #f5f5f0">{%if gerencia.status_encaminhado_gabinete%}{{gerencia.status_encaminhado_gabinete}}{%else%}{%endif%}
+              </td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_encaminhado_gabinete" style="font-size: 80%;">{%if gerencia.data_status_encaminhado_gabinete%}{{gerencia.data_status_encaminhado_gabinete}}
+              {%else%}{%endif%}</td>
+
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="status_reconducao_sead" style="font-size: 80%; background-color: #f0f5f5">{%if gerencia.status_reconducao_sead%}{{gerencia.status_reconducao_sead}}{%else%}{%endif%}</td>
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="data_status_reconducao_sead" style="font-size: 80%;">{%if gerencia.data_status_reconducao_sead%}{{gerencia.data_status_reconducao_sead}}{%else%}{%endif%}
+              </td>
+
+
+              <td class="editable" data-id="{{gerencia.id}}" data-type="nova_matricula" style="font-size: 80%; background-color: #e6f5ff">{%if gerencia.nova_matricula%}{{gerencia.nova_matricula}}
+              {%else%}{%endif%}</td>
 
               <!--
               <td align="center">
                   <button class="btn btn-success form-control" onClick="editGerencia({{gerencia.id}})" data-toggle="modal" data-target="#myModal")">Editar</button>
               </td>
-              -->
+              
               <td align="center">
                   <button class="btn btn-info btn-sm" onClick="window.location.reload();">Atualizar</button>
               </td>
+              -->
           </tr>
+          
           {% endfor %}
           {% else %}
-          
+          </tbody>
           {% endif %}
+          
         </table>
       </div>
     </div>

@@ -109,12 +109,12 @@
               text: ''
           },
           xAxis: {
-              categories: ['Recebidas', 'Enviadas SEAD', 'Conferidas', 'Enviadas Secretário', 'Recebidos da UTB']
+              categories: ['Recebidas', 'Enviadas SEAD', 'Enc. Gabinete', 'Aguardando Ass.Servidor', 'Recebidos da UTB']
           },
           series: [{
               name: '2021',
 
-              data: [120, 107, 31, 30, 200]
+              data: [{{qtd_fc_recebidas}}, {{qtd_tc_enc_sead}}, {{qtd_fc_enc_gabinete}}, 30, 200]
           }]
       });
     </script>    

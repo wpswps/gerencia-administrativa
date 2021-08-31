@@ -21,29 +21,40 @@ class RelacaoGeralServidor(models.Model):
 	
 
 	status_recebido = models.CharField(max_length = 100, null=True, blank=True)
-	data_status_recebido = models.CharField(max_length=100, blank=True, null=True)
+	data_status_recebido = models.DateField(null=True)
 	user_status_recebido = models.CharField(max_length = 200, null=True, blank=True)
 	
 
 	status_conferido = models.CharField(max_length=100, blank=True, null=True)
-	data_status_conferido = models.CharField(max_length=100, blank=True, null=True)
+	data_status_conferido = models.DateField(null=True)
 	user_status_conferido = models.CharField(max_length = 200, null=True, blank=True)
 	
 	
 	status_encaminhado_sead = models.CharField(max_length=100, blank=True, null=True)
-	data_status_encaminhado_sead = models.CharField(max_length=100, blank=True, null=True)
+	data_status_encaminhado_sead = models.DateField(null=True)
 	user_status_encaminhado_sead = models.CharField(max_length = 200, null=True, blank=True)
 	num_oficio_encaminhado_sead = models.CharField(max_length = 200, null=True, blank=True)
 	
 	
-	status_devolucao = models.CharField(max_length=100, blank=True, null=True)
-	data_status_devolucao = models.CharField(max_length=100, blank=True, null=True)
-	user_status_devolucao = models.CharField(max_length = 200, null=True, blank=True)
+	status_retorno_sead = models.CharField(max_length=100, blank=True, null=True)
+	data_status_retorno_sead = models.DateField(null=True)
+	user_status_retorno_sead = models.CharField(max_length = 200, null=True, blank=True)
+
+	status_assinatura_contrato = models.CharField(max_length=100, blank=True, null=True)
+	data_status_assinatura_contrato = models.DateField(null=True)
+	user_status_assinatura_contrato = models.CharField(max_length = 200, null=True, blank=True)
+
+
+	status_reconducao_sead = models.CharField(max_length=100, blank=True, null=True)
+	data_status_reconducao_sead = models.DateField(null=True)
+	user_status_reconducao_sead = models.CharField(max_length = 200, null=True, blank=True)
 	
 	
 	status_encaminhado_gabinete = models.CharField(max_length=100, blank=True, null=True)
-	data_status_encaminhado_gabinete = models.CharField(max_length=100, blank=True, null=True)
+	data_status_encaminhado_gabinete = models.DateField(null=True)
 	user_status_encaminhado_gabinete = models.CharField(max_length = 200, null=True, blank=True)
+
+	nova_matricula = models.CharField(max_length = 200, null=True, blank=True)
 	
 
 

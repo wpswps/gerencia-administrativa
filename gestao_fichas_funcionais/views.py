@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
+from datetime import datetime
 from .models import *
+
+import pandas as pd
 
 from django.views.generic import View
 from django.http import JsonResponse
@@ -40,7 +43,16 @@ def logout_user(request):
 
 @login_required(login_url='/login/')
 def index(request):
-	return render(request, 'index.html')
+	servidores = RelacaoGeralServidor.objects.all()
+	qtd_fc_recebidas_ = RelacaoGeralServidor.objects.filter(status_recebido='Recebido')
+	qtd_tc_enc_sead = RelacaoGeralServidor.objects.filter(status_encaminhado_sead='Encaminhado').count()
+	qtd_fc_recebidas = qtd_fc_recebidas_.count()
+	qtd_fc_enc_gabinete = RelacaoGeralServidor.objects.filter(status_encaminhado_gabinete='SIM').count()
+	#qtd_fc_enc_ = RelacaoGeralServidor.objects.filter(status_encaminhado_gabinete='SIM').count()
+	#qtd_fc_enc_ = RelacaoGeralServidor.objects.filter(status_encaminhado_gabinete='SIM').count()
+
+	return render(request, 'index.html', {'qtd_fc_recebidas':qtd_fc_recebidas, 'qtd_tc_enc_sead':qtd_tc_enc_sead, 
+		'qtd_fc_enc_gabinete':qtd_fc_enc_gabinete})
 
 
 @login_required(login_url='/login/')
@@ -95,32 +107,108 @@ def update_servidor(request):
 	tipo = request.POST.get('type','')
 	value = request.POST.get('value','')
 	servidor = RelacaoGeralServidor.objects.get(id=id)
+	user_logado = request.user.login
+	#print("usuário do sistema:", user_logado)
 	if tipo=="matricula":
 		servidor.matricula=value
 	if tipo=="nome":
 		servidor.nome=value
 	if tipo=="status_recebido":
-		servidor.status_recebido=value
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM':
+			value_n = 'Recebido'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_recebido=value_new
+		servidor.user_status_recebido = user_logado
 	if tipo=="data_status_recebido":
-		servidor.data_status_recebido=value
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_recebido=value_
+	
 	if tipo=="status_conferido":
-		servidor.status_conferido=value
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM':
+			value_n = 'Conferido'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_conferido=value_new
+		servidor.user_status_conferido = user_logado
 	if tipo=="data_status_conferido":
-		servidor.data_status_conferido=value
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_conferido=value_
+	
 	if tipo=="status_encaminhado_sead":
-		servidor.status_encaminhado_sead=value
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM':
+			value_n = 'Encaminhado'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_encaminhado_sead=value_new
+		servidor.user_status_encaminhado_sead = user_logado
 	if tipo=="data_status_encaminhado_sead":
-		servidor.data_status_encaminhado_sead=value
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_encaminhado_sead=value_
+
 	if tipo=="num_oficio_encaminhado_sead":
 		servidor.num_oficio_encaminhado_sead=value
-	if tipo=="status_devolucao":
-		servidor.status_devolucao=value
-	if tipo=="data_status_devolucao":
-		servidor.data_status_devolucao=value
+
+	if tipo=="status_retorno_sead":
+		if value == 'c' or value == 'C' or value == 'contrato' or value == 'Contrato' or value == 'CONTRATO':
+			value_n = 'Contrato'
+		else:
+			value_n = 'Acumulo'
+		value_new = value_n
+		servidor.status_retorno_sead=value_new
+		servidor.user_status_retorno_sead = user_logado
+
+	if tipo=="data_status_retorno_sead":
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_retorno_sead=value_
+
+
+	if tipo=="status_assinatura_contrato":
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM':
+			value_n = 'Assinado'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_assinatura_contrato=value_new
+		servidor.user_status_assinatura_contrato = user_logado
+
+
+	if tipo=="data_status_assinatura_contrato":
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_assinatura_contrato=value_
+
+
+	
+
+	if tipo=="status_reconducao_sead":
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM' or value == 's' or value == 'S':
+			value_n = 'SIM'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_reconducao_sead=value_new
+		servidor.user_status_reconducao_sead = user_logado
+	if tipo=="data_status_reconducao_sead":
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_reconducao_sead=value_
+
 	if tipo=="status_encaminhado_gabinete":
-		servidor.status_encaminhado_gabinete=value
+		if value == 'sim' or value == 'Sim' or value == 'SIM' or value == 'sIm' or value == 'SIm' or value=='siM' or value == 'SiM' or value == 'sIM' or value == 's' or value == 'S':
+			value_n = 'SIM'
+		else:
+			value_n = ''
+		value_new = value_n
+		servidor.status_encaminhado_gabinete=value_new
+		servidor.user_status_encaminhado_gabinete = user_logado
 	if tipo=="data_status_encaminhado_gabinete":
-		servidor.data_status_encaminhado_gabinete=value
+		value_ = datetime.strptime(value, '%d-%m-%Y').date()
+		servidor.data_status_encaminhado_gabinete=value_
+
+	if tipo=="nova_matricula":
+		servidor.nova_matricula=value
 
 	servidor.save()
 	return JsonResponse({"success":"Updated"})
