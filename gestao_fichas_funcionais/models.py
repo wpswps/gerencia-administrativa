@@ -60,3 +60,21 @@ class RelacaoGeralServidor(models.Model):
 
 	def __str__(self):
 		return str(self.codigo)
+
+
+
+class GeralServidor(models.Model):
+	unidade = models.IntegerField(blank=True, null=True)
+	matricula = models.CharField(max_length = 200, null=True, blank=True)
+	nome = models.CharField(max_length = 200, null=True, blank=True)
+	funcao = models.CharField(max_length = 200, null=True, blank=True)
+	cargo = models.CharField(max_length = 200, null=True, blank=True)
+	cpf = models.CharField(max_length = 200, null=True, blank=True)
+	produtividade = models.IntegerField(blank=True, null=True)
+	utb = models.CharField(max_length = 200, null=True, blank=True)
+	regime = models.CharField(max_length = 200, null=True, blank=True)
+	data_admissao = models.DateField(null=True, blank=True)
+	data_demissao = models.DateField(null=True, blank=True)
+
+	def __str__(self):
+		return str(self.nome)
