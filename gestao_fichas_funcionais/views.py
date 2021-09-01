@@ -99,6 +99,37 @@ def acompanhar_ficha(request):
 	return render(request, 'acompanhar_ficha.html', {'servidores':servidores, 'unidade':unidade})
 
 
+@login_required(login_url='/login/')
+def localizar_servidor(request):
+
+	return render(request, 'localizar_servidor.html')
+
+
+@login_required(login_url='/login/')
+def set_localizar_servidor(request):
+	cpf = request.POST.get('cpf')
+	request.session['cpf'] = cpf
+	#servidor = RelacaoGeralServidor.objects.filter(cpf=cpf)
+
+	return redirect('search_servidor')
+
+
+@login_required(login_url='/login/')
+def search_servidor(request):
+	relacao_all = RelacaoGeralServidor.objects.all()
+	cpf = request.session['cpf']
+	servidores = RelacaoGeralServidor.objects.filter(cpf=cpf).order_by('nome')
+
+	return render(request, 'servidor_location.html', {'servidores':servidores, 'cpf':cpf})
+
+
+@login_required(login_url='/login/')
+def servidor_view(request, id):
+	servidor = RelacaoGeralServidor.objects.get(id=id)
+
+	return render(request, 'servidor_view.html', {'servidor':servidor})
+
+
 
 
 @csrf_exempt
